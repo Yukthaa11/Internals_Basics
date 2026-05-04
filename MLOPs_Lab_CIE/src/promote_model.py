@@ -19,44 +19,45 @@ df = pd.read_csv(DATA_PATH)
 X = df.drop("lap_time_seconds", axis=1)
 y = df["lap_time_seconds"]
 
-# Split
+# Train-test split (same as Task 1)
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# Get current version (version 1)
+# Get existing versions
 versions = client.search_model_versions(f"name='{MODEL_NAME}'")
-champion_version = int(versions[-1].version)
 
-# Train challenger model (random_state=99)
-model = RandomForestRegressor(random_state=99)
-model.fit(X_train, y_train)
+# Sort versions to get correct order
+versions_sorted = sorted(versions, key=lambda x: int(x.version))
 
-preds = model.predict(X_test)
-challenger_rmse = np.sqrt(mean_squared_error(y_test, preds))
+champion_version = int(versions_sorted[-1].version)
+
+champion_rmse = 6.7814
+
+# Train challenger model
+challenger_model = RandomForestRegressor(random_state=99)
+challenger_model.fit(X_train, y_train)
+
+challenger_preds = challenger_model.predict(X_test)
+challenger_rmse = np.sqrt(mean_squared_error(y_test, challenger_preds))
 
 # Log challenger run
 with mlflow.start_run():
     mlflow.log_metric("rmse", challenger_rmse)
-    mlflow.sklearn.log_model(model, "RandomForest")
+    mlflow.sklearn.log_model(challenger_model, "RandomForest")
     run_id = mlflow.active_run().info.run_id
 
-# Register challenger (version 2)
+# Register challenger model
 model_uri = f"runs:/{run_id}/RandomForest"
 new_version = mlflow.register_model(model_uri, MODEL_NAME)
 
 challenger_version = int(new_version.version)
 
-# Get champion RMSE (version 1)
-# NOTE: We already know from Task 2
-champion_rmse = 6.7814  # from your Task 1 output
-
-# Compare
 if challenger_rmse < champion_rmse:
-    action = "promoted_or_kept"
+    action = "promoted"
     chosen_version = challenger_version
 else:
-    action = "promoted_or_kept"
+    action = "kept"
     chosen_version = champion_version
 
 # Assign alias "live"

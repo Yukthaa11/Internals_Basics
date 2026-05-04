@@ -1,7 +1,7 @@
 {
     "registered_model_name": "swimsync-lap-time-seconds-predictor",
     "alias_name": "live",
-    "champion_version": 1,
-    "challenger_version": 2,
-    "action": "promoted_or_kept"
+    "champion_version": 2,
+    "challenger_version": 3,
+    "action": "promoted"
 }
