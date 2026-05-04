@@ -1,6 +1,21 @@
 # MLOps Lab CIE – SwimSync
 
-This repository contains solutions for the MLOps Lab CIE.
+## ?? Problem Statement
+
+You are an MLOps Engineer at SwimSync. SwimSync provides performance analytics for competitive swimmers.
+
+The objective is to predict lap time (in seconds) using stroke and biomechanics data.
+
+### Features:
+- stroke_rate (30–80)
+- drag_coefficient (0.01–0.1)
+- turn_time_ms (400–900)
+- pool_length_m (25–50)
+
+### Target:
+- lap_time_seconds
+
+A second dataset (`data/new_data.csv`) contains recent records with shifted distributions, used for retraining and monitoring model performance.
 
 ## Tasks Completed
 
