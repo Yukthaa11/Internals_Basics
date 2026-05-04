@@ -1,6 +1,6 @@
 # MLOps Lab CIE – SwimSync
 
-## ?? Problem Statement
+## Problem Statement
 
 You are an MLOps Engineer at SwimSync. SwimSync provides performance analytics for competitive swimmers.
 
