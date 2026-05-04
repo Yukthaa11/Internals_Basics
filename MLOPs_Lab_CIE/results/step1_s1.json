@@ -1,0 +1,22 @@
+{
+    "experiment_name": "swimsync-lap-time-seconds",
+    "models": [
+        {
+            "name": "SVR",
+            "mae": 5.6777,
+            "rmse": 7.4157,
+            "r2": 0.1353,
+            "mape": 13.9646
+        },
+        {
+            "name": "RandomForest",
+            "mae": 5.6402,
+            "rmse": 6.7814,
+            "r2": 0.2769,
+            "mape": 13.1166
+        }
+    ],
+    "best_model": "RandomForest",
+    "best_metric_name": "rmse",
+    "best_metric_value": 6.7814
+}
